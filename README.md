@@ -1,1 +1,1 @@
-# mma-scraper
+# Rugby Scraper
