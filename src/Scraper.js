@@ -17,8 +17,8 @@ scraper.scrapePage = async (url) => {
  * @param {string} position The DOM element that represents the position of the player on a webpage
  * @param {string} playerLink The DOM element that holds the link to the player info page (targets 'href' attribute)
  * @param {string} image The DOM element that contains an image of the player on a webpage (targets 'src' attribute)
- * @param {string} height The DOM element that contains the height of the player on a webpage
- * @param {string} weight The DOM element that contains the weight of the player on a webpage
+ * @param {object} height The DOM element that contains the height of the player on a webpage
+ * @param {object} weight The DOM element that contains the weight of the player on a webpage
  * @param {string} dob The DOM element that contains the date of birth of the player on a webpage
  */
 scraper.formPlayerObject = ({
@@ -36,8 +36,16 @@ scraper.formPlayerObject = ({
   if (typeof position !== 'string') position = null
   if (typeof playerLink !== 'string') playerLink = null
   if (typeof image !== 'string') image = null
-  if (typeof height !== 'string') height = null
-  if (typeof weight !== 'string') weight = null
+  if (
+    !Array.isArray(height) ||
+    !height.length ||
+    !height.every(n => typeof n === 'object' && n.hasOwnProperty('value') && n.hasOwnProperty('unit'))
+  ) height = null
+  if (
+    !Array.isArray(weight) ||
+    !weight.length ||
+    !weight.every(n => typeof n === 'object' && n.hasOwnProperty('value') && n.hasOwnProperty('unit'))
+  ) weight = null
   if (typeof dob !== 'string') dob = null
 
   return {

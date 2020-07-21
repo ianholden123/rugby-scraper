@@ -1,5 +1,6 @@
 const scraper = require("./Scraper");
 const cheerio = require("cheerio");
+const { extractHeightFromString, extractWeightFromString } = require("./utils");
 
 // Wasps
 scraper
@@ -34,6 +35,9 @@ scraper
 
     const squad = [];
     squadPlayerElements.each(function () {
+      const height = $(this).find(".m-player-card__stats dd[itemprop=height]").text();
+      const weight = $(this).find(".m-player-card__stats dd[itemprop=weight]").text();
+
       squad.push(
         scraper.formPlayerObject({
           team: "Bristol",
@@ -41,8 +45,8 @@ scraper
           position: $(this).find(".m-player-card__stats dd[itemprop=jobTitle]").text(),
           playerLink: $(this).find("a.m-player-card__link").attr("href"),
           image: $(this).find("img.m-player-card__image").attr("src"),
-          height: $(this).find(".m-player-card__stats dd[itemprop=height]").text(),
-          weight: $(this).find(".m-player-card__stats dd[itemprop=weight]").text(),
+          height: extractHeightFromString(height),
+          weight: extractWeightFromString(weight),
           dob: $(this).find(".m-player-card__stats > dd").first().text()
         })
       );

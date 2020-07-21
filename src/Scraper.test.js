@@ -1,4 +1,14 @@
 const scraper = require("./Scraper");
+const axios = require('axios');
+
+jest.mock('axios');
+
+describe('scrapePage', () => {
+  test('Call Axios with supplied URL parameter', () => {
+    scraper.scrapePage('https://...')
+    expect(axios).toHaveBeenCalledWith('https://...',);
+  });
+});
 
 describe('formPlayerObject', () => {
   test('supplying zero parameters', () => {
@@ -64,6 +74,9 @@ describe('formPlayerObject', () => {
     expect(scraper.formPlayerObject({ height: undefined })).toEqual(expectedResult);
     expect(scraper.formPlayerObject({ weight: undefined })).toEqual(expectedResult);
     expect(scraper.formPlayerObject({ dob: undefined })).toEqual(expectedResult);
+
+    expect(scraper.formPlayerObject({ height: [{ value: 3, unit: 'in' }, { value: 5 }] })).toEqual(expectedResult);
+    expect(scraper.formPlayerObject({ weight: [{ value: 3 }] })).toEqual(expectedResult);
   });
   
   test('supplying correct object values should return that object\'s value', () => {
@@ -72,8 +85,8 @@ describe('formPlayerObject', () => {
     expect(scraper.formPlayerObject({ position: 'Second Row' })).toMatchObject({ position: 'Second Row' });
     expect(scraper.formPlayerObject({ playerLink: 'https://...' })).toMatchObject({ playerLink: 'https://...' });
     expect(scraper.formPlayerObject({ image: 'https://...' })).toMatchObject({ image: 'https://...' });
-    expect(scraper.formPlayerObject({ height: '2ft 4in' })).toMatchObject({ height: '2ft 4in' });
-    expect(scraper.formPlayerObject({ weight: '65kg' })).toMatchObject({ weight: '65kg' });
+    expect(scraper.formPlayerObject({ height: [{ value: 2, unit: 'ft' }, { value: 4, unit: 'in' }] })).toMatchObject({ height: [{ value: 2, unit: 'ft' }, { value: 4, unit: 'in' }] });
+    expect(scraper.formPlayerObject({ weight: [{ value: 64, unit: 'kg' }] })).toMatchObject({ weight: [{ value: 64, unit: 'kg' }] });
     expect(scraper.formPlayerObject({ dob: '24th February 1993' })).toMatchObject({ dob: '24th February 1993' });
   });
 
