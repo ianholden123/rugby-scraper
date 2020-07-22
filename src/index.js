@@ -1,5 +1,6 @@
-const scraper = require("./Scraper");
 const cheerio = require("cheerio");
+const scraper = require("./Scraper");
+const file = require("./File");
 const { extractHeightFromString, extractWeightFromString } = require("./utils");
 
 // Wasps
@@ -22,7 +23,7 @@ scraper
       );
     });
 
-    console.log(squad);
+    file.writeToFile('output/teams/wasps.json', squad);
   })
   .catch(console.error);
 
@@ -52,6 +53,6 @@ scraper
       );
     });
 
-    console.log(squad);
+    file.writeToFile('output/teams/bristol-bears.json', squad);
   })
   .catch(console.error);
