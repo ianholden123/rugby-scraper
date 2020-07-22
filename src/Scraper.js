@@ -11,15 +11,15 @@ scraper.scrapePage = async (url) => {
 };
 
 /**
- * Return an array of all players found on a given HTML page
- * @param {string} team The team that we are scraping
- * @param {string} name The DOM element that represents the name of the player on a webpage
- * @param {string} position The DOM element that represents the position of the player on a webpage
- * @param {string} playerLink The DOM element that holds the link to the player info page (targets 'href' attribute)
- * @param {string} image The DOM element that contains an image of the player on a webpage (targets 'src' attribute)
- * @param {object} height The DOM element that contains the height of the player on a webpage
- * @param {object} weight The DOM element that contains the weight of the player on a webpage
- * @param {string} dob The DOM element that contains the date of birth of the player on a webpage
+ * Return a standardised object of a player
+ * @param {string} team The team that the player belongs to
+ * @param {string} name The name of the player on a webpage
+ * @param {string} position The position that the player plays in
+ * @param {string} playerLink The link to the player info page
+ * @param {string} image The link to the image of the player
+ * @param {object} height The height of the player
+ * @param {object} weight The weight of the player
+ * @param {string} dob The date of birth of the player
  */
 scraper.formPlayerObject = ({
   team = null,
