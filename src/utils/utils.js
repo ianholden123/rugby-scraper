@@ -1,3 +1,4 @@
+const converter = require('./converter');
 
 let utils = (module.exports = {});
 
@@ -46,19 +47,25 @@ utils.extractWeightFromString = (weightString) => {
 }
 
 /**
- * Convert a height object to a new unit of measurement and return the new object.
- * @param {object} fromHeightObject A height object.
- * @param {string} toUnit The desired unit to return the height in.
+ * Test if an array is a valid measurement array.
+ * @param {array} measurementArray The array to test
  */
-utils.convertHeight = (fromHeightObject, toUnit) => {
-  return null;
-}
+utils.isValidMeasurementArray = (measurementArray) => {
+  if (
+    !measurementArray ||
+    !Array.isArray(measurementArray) ||
+    measurementArray.length === 0
+  ) return false;
 
-/**
- * Convert a weight object to a new unit of measurement and return the new object.
- * @param {object} fromWeightObject A weight object.
- * @param {string} toUnit The desired unit to return the weight in.
- */
-utils.convertWeight = (fromWeightObject, toUnit) => {
-  return null;
+  for(const item of measurementArray) {
+    if (
+      typeof item !== 'object' ||
+      !item.hasOwnProperty('value') ||
+      typeof item.value !== 'number' ||
+      !item.hasOwnProperty('unit') ||
+      typeof item.unit !== 'string'
+    ) return false;
+  }
+
+  return true;
 }

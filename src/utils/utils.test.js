@@ -61,14 +61,32 @@ describe('extractWeightFromString', () => {
   })
 })
 
-describe('convertHeight', () => {
-  test('if no parametera are passed, it should return null', () => {
-    expect(utils.convertHeight()).toEqual(null)
+describe('isValidMeasurementArray', () => {
+  test('if no parameters are passed, it should return false', () => {
+    expect(utils.isValidMeasurementArray()).toEqual(false);
   })
-})
 
-describe('convertWeight', () => {
-  test('if no parametera are passed, it should return null', () => {
-    expect(utils.convertWeight()).toEqual(null)
+  test('if the parameter is an invalid type, return false', () => {
+    expect(utils.isValidMeasurementArray(null)).toEqual(false);
+    expect(utils.isValidMeasurementArray(undefined)).toEqual(false);
+    expect(utils.isValidMeasurementArray('')).toEqual(false);
+    expect(utils.isValidMeasurementArray(1)).toEqual(false);
+    expect(utils.isValidMeasurementArray({})).toEqual(false);
+  })
+
+  test('if the parameter is an array of length 0, return false', () => {
+    expect(utils.isValidMeasurementArray([])).toEqual(false);
+  })
+
+  test('if the parameter is an array of invalid objects, return false', () => {
+    expect(utils.isValidMeasurementArray([{}])).toEqual(false);
+    expect(utils.isValidMeasurementArray([{ value: '1', unit: 'cm' }])).toEqual(false);
+    expect(utils.isValidMeasurementArray([{ value: 1, something: 'cm' }])).toEqual(false);
+  })
+
+  test('if the parameter is an array of valid objects, return true', () => {
+    expect(utils.isValidMeasurementArray([{ value: 1, unit: 'cm' }])).toEqual(true);
+    expect(utils.isValidMeasurementArray([{ value: 1, unit: 'cm', someIrrelevantKey: 'something' }])).toEqual(true);
+    expect(utils.isValidMeasurementArray([{ value: 1, unit: 'cm' }, { value: 3, unit: 'm' }])).toEqual(true);
   })
 })

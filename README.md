@@ -2,6 +2,18 @@
 
 Rugby Scraper is a Node program designed to scrape player data from rugby websites. This data is then output into multiple JSON files.
 
+> :warning: As is the nature of scraping from multiple different webpages, certain team's player data may not be collected if the corresponding team changes their webpage markup.
+
+Currently, this project outputs data from the following rugby teams:
+
+- Bath
+- Bristol Bears
+- Exeter Chiefs
+- Leicester Tigers
+- London Irish
+- Sale Sharks
+- Wasps
+
 ## Installation
 
 Use the package manager [npm](https://www.npmjs.com/) to install Rugby Scraper.

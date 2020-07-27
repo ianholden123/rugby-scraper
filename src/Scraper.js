@@ -13,7 +13,7 @@ scraper.scrapePage = async (url) => {
 /**
  * Return a standardised object of a player
  * @param {string} team The team that the player belongs to
- * @param {string} name The name of the player on a webpage
+ * @param {string} name The name of the player
  * @param {string} position The position that the player plays in
  * @param {string} playerLink The link to the player info page
  * @param {string} image The link to the image of the player
