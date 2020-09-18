@@ -90,3 +90,28 @@ describe('isValidMeasurementArray', () => {
     expect(utils.isValidMeasurementArray([{ value: 1, unit: 'cm' }, { value: 3, unit: 'm' }])).toEqual(true);
   })
 })
+
+describe('createAbsoluteUrl', () => {
+  test('if no parameters are passed, it should return null', () => {
+    expect(utils.createAbsoluteUrl()).toEqual(null)
+    expect(utils.createAbsoluteUrl('')).toEqual(null)
+  })
+
+  test('if invalid parameters are passed, throw error', () => {
+    expect(() => { utils.createAbsoluteUrl(1, 1) }).toThrow(Error)
+    expect(() => { utils.createAbsoluteUrl({}, {}) }).toThrow(Error)
+    expect(() => { utils.createAbsoluteUrl([], []) }).toThrow(Error)
+  })
+
+  test('if valid strings are passed, it should prepend the site root URL if it does not already exist in the given string', () => {
+    expect(utils.createAbsoluteUrl('https://www.site.com/', '/some/directory/file.png')).toEqual('https://www.site.com/some/directory/file.png')
+    expect(utils.createAbsoluteUrl('https://www.site.com/', 'some/directory/file.png')).toEqual('https://www.site.com/some/directory/file.png')
+    expect(utils.createAbsoluteUrl('https://www.site.com', '/some/directory/file.png')).toEqual('https://www.site.com/some/directory/file.png')
+    expect(utils.createAbsoluteUrl('https://www.site.com', 'some/directory/file.png')).toEqual('https://www.site.com/some/directory/file.png')
+  })
+
+  test('if valid strings are passed, it should not prepend the site root URL if it already exists in the given string', () => {
+    expect(utils.createAbsoluteUrl('https://www.site.com/', 'https://www.site.com/some/directory/file.png')).toEqual('https://www.site.com/some/directory/file.png')
+    expect(utils.createAbsoluteUrl('https://www.site.com', 'https://www.site.com/some/directory/file.png')).toEqual('https://www.site.com/some/directory/file.png')
+  })
+})

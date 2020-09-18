@@ -69,3 +69,21 @@ utils.isValidMeasurementArray = (measurementArray) => {
 
   return true;
 }
+
+/**
+ * Create an absolute URL from a given URL string using the given site URL
+ * @param {string} siteUrlToPrepend The site URL - including protocol, subdomain and domain
+ * @param {string} url The remaining URL string - including entire web address, or just the directory and file
+ */
+utils.createAbsoluteUrl = (siteUrlToPrepend, url) => {
+  if (!siteUrlToPrepend || !url) return null
+  if (typeof siteUrlToPrepend !== 'string' || typeof url !== 'string')
+    throw new Error('Please provide valid parameters when creating a URL.')
+
+  if (url.includes(siteUrlToPrepend)) return url
+
+  if (siteUrlToPrepend.substr(siteUrlToPrepend.length - 1, 1) !== '/') siteUrlToPrepend = siteUrlToPrepend + '/'
+  if (url.substr(0, 1) === '/') url = url.substr(1)
+  
+  return siteUrlToPrepend + url
+}
