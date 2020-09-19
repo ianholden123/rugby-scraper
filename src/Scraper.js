@@ -1,4 +1,8 @@
 const axios = require("axios");
+const {
+  isForward,
+  isBack
+} = require("./utils/playerPositions")
 
 let scraper = (module.exports = {});
 
@@ -48,10 +52,14 @@ scraper.formPlayerObject = ({
   ) weight = null
   if (typeof dob !== 'string') dob = null
 
+  let isForwardOrBack = null
+  if (position) isForward(position) ? isForwardOrBack = 'Forward' : isBack(position) ? isForwardOrBack = 'Back' : null
+
   return {
     team,
     name,
     position,
+    isForwardOrBack,
     playerLink,
     image,
     height,

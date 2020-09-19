@@ -16,6 +16,7 @@ describe('formPlayerObject', () => {
       team: null,
       name: null,
       position: null,
+      isForwardOrBack: null,
       playerLink: null,
       image: null,
       height: null,
@@ -32,6 +33,7 @@ describe('formPlayerObject', () => {
       team: null,
       name: null,
       position: null,
+      isForwardOrBack: null,
       playerLink: null,
       image: null,
       height: null,
@@ -83,6 +85,8 @@ describe('formPlayerObject', () => {
     expect(scraper.formPlayerObject({ team: 'Wasps' })).toMatchObject({ team: 'Wasps' });
     expect(scraper.formPlayerObject({ name: 'Joe Launchbury' })).toMatchObject({ name: 'Joe Launchbury' });
     expect(scraper.formPlayerObject({ position: 'Second Row' })).toMatchObject({ position: 'Second Row' });
+    expect(scraper.formPlayerObject({ position: 'Second Row' })).toMatchObject({ isForwardOrBack: 'Forward' });
+    expect(scraper.formPlayerObject({ position: 'Centre' })).toMatchObject({ isForwardOrBack: 'Back' });
     expect(scraper.formPlayerObject({ playerLink: 'https://...' })).toMatchObject({ playerLink: 'https://...' });
     expect(scraper.formPlayerObject({ image: 'https://...' })).toMatchObject({ image: 'https://...' });
     expect(scraper.formPlayerObject({ height: [{ value: 2, unit: 'ft' }, { value: 4, unit: 'in' }] })).toMatchObject({ height: [{ value: 2, unit: 'ft' }, { value: 4, unit: 'in' }] });

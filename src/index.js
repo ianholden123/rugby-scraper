@@ -1,13 +1,15 @@
 const cheerio = require("cheerio");
 const scraper = require("./Scraper");
 const file = require("./File");
-const { 
+const {
   extractHeightFromString,
   extractWeightFromString,
   createAbsoluteUrl
 } = require("./utils/utils");
 
-// Bath
+// ============================================================================================
+// Bath =======================================================================================
+// ============================================================================================
 const urlBath = "https://www.bathrugby.com/"
 const urlBathPlayersPage = "the-club/the-team/bath-rugby-senior-squad/"
 scraper.scrapePage(createAbsoluteUrl(urlBath, urlBathPlayersPage))
@@ -32,7 +34,10 @@ scraper.scrapePage(createAbsoluteUrl(urlBath, urlBathPlayersPage))
   })
   .catch(console.error);
 
-// Bristol Bears
+
+// ============================================================================================
+// Bristol Bears ==============================================================================
+// ============================================================================================
 const urlBristol = "https://www.bristolbearsrugby.com/"
 const urlBristolPlayersPage = "teams/first-team-squad/"
 scraper.scrapePage(createAbsoluteUrl(urlBristol, urlBristolPlayersPage))
@@ -63,7 +68,10 @@ scraper.scrapePage(createAbsoluteUrl(urlBristol, urlBristolPlayersPage))
   })
   .catch(console.error);
 
-// Exeter Chiefs
+
+// ============================================================================================
+// Exeter Chiefs ==============================================================================
+// ============================================================================================
 const urlExeter = "https://www.exeterchiefs.co.uk/"
 const urlExeterPlayersPage = "club/players"
 scraper.scrapePage(createAbsoluteUrl(urlExeter, urlExeterPlayersPage))
@@ -88,7 +96,10 @@ scraper.scrapePage(createAbsoluteUrl(urlExeter, urlExeterPlayersPage))
   })
   .catch(console.error);
 
-// Leicester Tigers
+
+// ============================================================================================
+// Leicester Tigers ===========================================================================
+// ============================================================================================
 const urlLeicester = "https://www.leicestertigers.com/"
 const urlLeicesterPlayersPage = "team/senior"
 scraper.scrapePage(createAbsoluteUrl(urlLeicester, urlLeicesterPlayersPage))
@@ -113,7 +124,10 @@ scraper.scrapePage(createAbsoluteUrl(urlLeicester, urlLeicesterPlayersPage))
   })
   .catch(console.error);
 
-// London Irish
+
+// ============================================================================================
+// London Irish ===============================================================================
+// ============================================================================================
 const urlLondonIrish = "https://www.london-irish.com/"
 const urlLondonIrishPlayersPage = "team/first-team/47/"
 scraper.scrapePage(createAbsoluteUrl(urlLondonIrish, urlLondonIrishPlayersPage))
@@ -138,7 +152,10 @@ scraper.scrapePage(createAbsoluteUrl(urlLondonIrish, urlLondonIrishPlayersPage))
   })
   .catch(console.error);
 
-// Sale Sharks
+
+// ============================================================================================
+// Sale Sharks ================================================================================
+// ============================================================================================
 const urlSale = "https://www.salesharks.com/"
 const urlSalePlayersPage = "teams/first-team/"
 scraper.scrapePage(createAbsoluteUrl(urlSale, urlSalePlayersPage))
@@ -163,7 +180,10 @@ scraper.scrapePage(createAbsoluteUrl(urlSale, urlSalePlayersPage))
   })
   .catch(console.error);
 
-// Wasps
+
+// ============================================================================================
+// Wasps ======================================================================================
+// ============================================================================================
 const urlWasps = "https://www.wasps.co.uk/"
 const urlWaspsPlayersPage = "players-staff/senior-squad/"
 scraper.scrapePage(createAbsoluteUrl(urlWasps, urlWaspsPlayersPage))
