@@ -98,6 +98,34 @@ scraper.scrapePage(createAbsoluteUrl(urlExeter, urlExeterPlayersPage))
 
 
 // ============================================================================================
+// Gloucester =================================================================================
+// ============================================================================================
+const urlGloucester = "https://www.gloucesterrugby.co.uk/"
+const urlGloucesterPlayersPage = "fixtures-teams/players/"
+scraper.scrapePage(createAbsoluteUrl(urlGloucester, urlGloucesterPlayersPage))
+  .then((response) => {
+    const $ = cheerio.load(response);
+    const squadPlayerElements = $(".squadBlock");
+
+    const squad = [];
+    squadPlayerElements.each(function () {
+      squad.push(
+        scraper.formPlayerObject({
+          team: "Gloucester",
+          name: $(this).find("a.squadBlock-link").attr("title"),
+          position: $(this).find(".squadBlockPosition p").text(),
+          playerLink: createAbsoluteUrl(urlGloucester, $(this).find("a.squadBlock-link").attr("href")),
+          image: $(this).find("div.squadBlockImg-Headshot img").attr("src")
+        })
+      );
+    });
+
+    file.writeToFile('output/teams/gloucester.json', squad);
+  })
+  .catch(console.error);
+
+
+// ============================================================================================
 // Leicester Tigers ===========================================================================
 // ============================================================================================
 const urlLeicester = "https://www.leicestertigers.com/"
@@ -151,6 +179,35 @@ scraper.scrapePage(createAbsoluteUrl(urlLondonIrish, urlLondonIrishPlayersPage))
     file.writeToFile('output/teams/london-irish.json', squad);
   })
   .catch(console.error);
+
+ 
+// ============================================================================================
+// Northampton Saints =========================================================================
+// ============================================================================================
+const urlNorthampton = "https://www.northamptonsaints.co.uk/"
+const urlNorthamptonPlayersPage = "rugby/squad/senior"
+scraper.scrapePage(createAbsoluteUrl(urlNorthampton, urlNorthamptonPlayersPage))
+  .then((response) => {
+    const $ = cheerio.load(response);
+    const squadPlayerElements = $(".widget--squad .grid__item");
+
+    const squad = [];
+    squadPlayerElements.each(function () {
+      squad.push(
+        scraper.formPlayerObject({
+          team: "Northampton Saints",
+          name: $(this).find(".summary__title").text(),
+          position: $(this).find(".summary__tag").text(),
+          playerLink: createAbsoluteUrl(urlNorthampton, $(this).find("a").attr("href")),
+          image: $(this).find("a").attr("style").replace('background-image:url(', '').slice(0, -1)
+        })
+      );
+    });
+
+    file.writeToFile('output/teams/northampton-saints.json', squad);
+  })
+  .catch(console.error);
+ 
 
 
 // ============================================================================================
@@ -231,6 +288,6 @@ scraper.scrapePage(createAbsoluteUrl(urlWorcester, urlWorcesterPlayersPage))
       );
     });
 
-    file.writeToFile('output/teams/worcester.json', squad);
+    file.writeToFile('output/teams/worcester-warriors.json', squad);
   })
   .catch(console.error);

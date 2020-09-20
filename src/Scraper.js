@@ -17,8 +17,9 @@ function wait (ms) {
 scraper.scrapePage = async (url) => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
+  page.setDefaultNavigationTimeout(50000)
   await page.goto(url, { waitUntil: 'networkidle0' });
-  await wait(2000)
+  await wait(1000)
   const content = await page.content()
   browser.close();
   return content

@@ -9,8 +9,10 @@ Currently, this project outputs data from the following rugby teams:
 - Bath
 - Bristol Bears
 - Exeter Chiefs
+- Gloucester
 - Leicester Tigers
 - London Irish
+- Northampton Saints
 - Sale Sharks
 - Wasps
 - Worcester Warriors
