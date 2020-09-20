@@ -1,12 +1,12 @@
 const scraper = require("./Scraper");
-const axios = require('axios');
+const puppeteer = require('puppeteer');
 
-jest.mock('axios');
+jest.mock('puppeteer');
 
 describe('scrapePage', () => {
-  test('Call Axios with supplied URL parameter', () => {
+  test('Launch Puppeteer', () => {
     scraper.scrapePage('https://...')
-    expect(axios).toHaveBeenCalledWith('https://...',);
+    expect(puppeteer.launch).toHaveBeenCalled();
   });
 });
 

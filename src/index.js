@@ -14,7 +14,7 @@ const urlBath = "https://www.bathrugby.com/"
 const urlBathPlayersPage = "the-club/the-team/bath-rugby-senior-squad/"
 scraper.scrapePage(createAbsoluteUrl(urlBath, urlBathPlayersPage))
   .then((response) => {
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response);
     const squadPlayerElements = $(".people .column");
 
     const squad = [];
@@ -42,7 +42,7 @@ const urlBristol = "https://www.bristolbearsrugby.com/"
 const urlBristolPlayersPage = "teams/first-team-squad/"
 scraper.scrapePage(createAbsoluteUrl(urlBristol, urlBristolPlayersPage))
   .then((response) => {
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response);
     const squadPlayerElements = $(".m-player-card");
 
     const squad = [];
@@ -76,7 +76,7 @@ const urlExeter = "https://www.exeterchiefs.co.uk/"
 const urlExeterPlayersPage = "club/players"
 scraper.scrapePage(createAbsoluteUrl(urlExeter, urlExeterPlayersPage))
   .then((response) => {
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response);
     const squadPlayerElements = $(".player-list .player");
 
     const squad = [];
@@ -104,7 +104,7 @@ const urlLeicester = "https://www.leicestertigers.com/"
 const urlLeicesterPlayersPage = "team/senior"
 scraper.scrapePage(createAbsoluteUrl(urlLeicester, urlLeicesterPlayersPage))
   .then((response) => {
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response);
     const squadPlayerElements = $(".widget--squad .grid .grid__item");
 
     const squad = [];
@@ -132,7 +132,7 @@ const urlLondonIrish = "https://www.london-irish.com/"
 const urlLondonIrishPlayersPage = "team/first-team/47/"
 scraper.scrapePage(createAbsoluteUrl(urlLondonIrish, urlLondonIrishPlayersPage))
   .then((response) => {
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response);
     const squadPlayerElements = $(".player-list .player");
 
     const squad = [];
@@ -160,7 +160,7 @@ const urlSale = "https://www.salesharks.com/"
 const urlSalePlayersPage = "teams/first-team/"
 scraper.scrapePage(createAbsoluteUrl(urlSale, urlSalePlayersPage))
   .then((response) => {
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response);
     const squadPlayerElements = $(".squadBody .playerSquad");
 
     const squad = [];
@@ -188,7 +188,7 @@ const urlWasps = "https://www.wasps.co.uk/"
 const urlWaspsPlayersPage = "players-staff/senior-squad/"
 scraper.scrapePage(createAbsoluteUrl(urlWasps, urlWaspsPlayersPage))
   .then((response) => {
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response);
     const squadPlayerElements = $(".player_blocks");
 
     const squad = [];
@@ -205,5 +205,32 @@ scraper.scrapePage(createAbsoluteUrl(urlWasps, urlWaspsPlayersPage))
     });
 
     file.writeToFile('output/teams/wasps.json', squad);
+  })
+  .catch(console.error);
+
+
+// ============================================================================================
+// Worcester Warriors =========================================================================
+// ============================================================================================
+const urlWorcester = "https://warriors.co.uk/"
+const urlWorcesterPlayersPage = "teams/current/first-team/"
+scraper.scrapePage(createAbsoluteUrl(urlWorcester, urlWorcesterPlayersPage))
+  .then((response) => {
+    const $ = cheerio.load(response);
+    const squadPlayerElements = $(".teams-area article");
+
+    const squad = [];
+    squadPlayerElements.each(function () {
+      squad.push(
+        scraper.formPlayerObject({
+          team: "Worcester Warriors",
+          name: $(this).find(".caption h2").text(),
+          playerLink: $(this).find("a").attr("href"),
+          image: $(this).find("img").attr("src")
+        })
+      );
+    });
+
+    file.writeToFile('output/teams/worcester.json', squad);
   })
   .catch(console.error);

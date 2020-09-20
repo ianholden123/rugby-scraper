@@ -1,4 +1,4 @@
-const axios = require("axios");
+const puppeteer = require('puppeteer');
 const {
   isForward,
   isBack
@@ -6,12 +6,22 @@ const {
 
 let scraper = (module.exports = {});
 
+function wait (ms) {
+  return new Promise(resolve => setTimeout(() => resolve(), ms));
+}
+
 /**
  * Scrape a webpage and return the Axios response as a promise
  * @param {string} url The URL of the webpage to scrape
  */
 scraper.scrapePage = async (url) => {
-  return await axios(url);
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.goto(url, { waitUntil: 'networkidle0' });
+  await wait(2000)
+  const content = await page.content()
+  browser.close();
+  return content
 };
 
 /**

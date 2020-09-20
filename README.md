@@ -13,6 +13,7 @@ Currently, this project outputs data from the following rugby teams:
 - London Irish
 - Sale Sharks
 - Wasps
+- Worcester Warriors
 
 ## Installation
 
