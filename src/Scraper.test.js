@@ -1,13 +1,40 @@
 const scraper = require("./Scraper");
 const puppeteer = require('puppeteer');
 
-jest.mock('puppeteer');
+// jest.mock('puppeteer');
 
 describe('scrapePage', () => {
-  test('Launch Puppeteer', () => {
-    scraper.scrapePage('https://...')
-    expect(puppeteer.launch).toHaveBeenCalled();
+  beforeEach(async () => {
+    puppeteer.launch = jest.fn().mockReturnValue({
+      newPage: jest.fn().mockReturnValue({
+        setDefaultNavigationTimeout: jest.fn(),
+        goto: jest.fn(),
+        content: jest.fn()
+      }),
+      close: jest.fn()
+    })
+    await scraper.scrapePage('https://www.someurl.com')
   });
+
+  test('Launch Puppeteer', () => {
+    expect(puppeteer.launch).toHaveBeenCalled();
+  })
+
+  test('Puppeteers new page function should be called', () => {
+    expect(puppeteer.launch().newPage).toHaveBeenCalled();
+  })
+
+  test('URL parameter should be passed to puppeteer and used to return data', () => {
+    expect(puppeteer.launch().newPage().goto).toHaveBeenCalledWith('https://www.someurl.com', { waitUntil: 'networkidle0' });
+  })
+
+  test('Puppeteer page should return content at some stage', () => {
+    expect(puppeteer.launch().newPage().content).toHaveBeenCalled();
+  })
+
+  test('We should close puppeteers browser', () => {
+    expect(puppeteer.launch().close).toHaveBeenCalled();
+  })
 });
 
 describe('formPlayerObject', () => {
