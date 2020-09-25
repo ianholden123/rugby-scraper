@@ -1,7 +1,7 @@
 const converter = require("./converter");
 
 describe('convertHeight', () => {
-  test('if no parametera are passed, it should throw Error', () => {
+  test('if no parameters are passed, it should throw Error', () => {
     expect(() => { converter.convertHeight() }).toThrow(Error)
   })
 

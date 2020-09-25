@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "apollo": "node src/apolloServer.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,10 @@
   },
   "homepage": "https://github.com/ianholden123/mma-scraper#readme",
   "dependencies": {
+    "apollo-server": "^2.18.0",
     "cheerio": "^1.0.0-rc.3",
     "fs-extra": "^9.0.1",
+    "graphql": "^15.3.0",
     "puppeteer": "^5.0.0"
   },
   "devDependencies": {
