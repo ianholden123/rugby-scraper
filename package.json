@@ -1,7 +1,7 @@
 {
-  "name": "mma-scraper",
+  "name": "rugby-scraper",
   "version": "1.0.0",
-  "description": "A scraper to collect data about MMA organisations",
+  "description": "A scraper to collect data about Rugby teams",
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ianholden123/mma-scraper.git"
+    "url": "git+https://github.com/ianholden123/rugby-scraper.git"
   },
   "author": "Ian Holden",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ianholden123/mma-scraper/issues"
+    "url": "https://github.com/ianholden123/rugby-scraper/issues"
   },
-  "homepage": "https://github.com/ianholden123/mma-scraper#readme",
+  "homepage": "https://github.com/ianholden123/rugby-scraper#readme",
   "dependencies": {
     "apollo-server": "^2.18.0",
     "cheerio": "^1.0.0-rc.3",
