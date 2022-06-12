@@ -1,22 +1,31 @@
-const TeamScraper = require('./teams')
-const BathConfig = require('./teams/bath')
-const BristolBearsConfig = require('./teams/bristol-bears')
-const ExeterChiefsConfig = require('./teams/exeter-chiefs')
-const GloucesterConfig = require('./teams/gloucester')
-const LeicesterTigersConfig = require('./teams/leicester-tigers')
-const LondonIrishConfig = require('./teams/london-irish')
-const NorthamptonSaintsConfig = require('./teams/northampton-saints')
-const SaleSharksConfig = require('./teams/sale-sharks')
-const WaspsConfig = require('./teams/wasps')
-const WorcesterWarriorsConfig = require('./teams/worcester-warriors')
+const scraper = require("./Scraper");
+const file = require("./File");
+const { createAbsoluteUrl } = require("./utils/utils");
 
-new TeamScraper(BathConfig).scrapeTeamPage()
-new TeamScraper(BristolBearsConfig).scrapeTeamPage()
-new TeamScraper(ExeterChiefsConfig).scrapeTeamPage()
-new TeamScraper(GloucesterConfig).scrapeTeamPage()
-new TeamScraper(LeicesterTigersConfig).scrapeTeamPage()
-new TeamScraper(LondonIrishConfig).scrapeTeamPage()
-new TeamScraper(NorthamptonSaintsConfig).scrapeTeamPage()
-new TeamScraper(SaleSharksConfig).scrapeTeamPage()
-new TeamScraper(WaspsConfig).scrapeTeamPage()
-new TeamScraper(WorcesterWarriorsConfig).scrapeTeamPage()
+class TeamScraper {
+  constructor ({teamName, url, urlPlayersPage, handleScrapedResponse = () => {} }) {
+    this.teamName = teamName
+    this.url = url
+    this.urlPlayersPage = urlPlayersPage
+    this.handleScrapedResponse = handleScrapedResponse
+  }
+
+  scrapeTeamPage() {
+    return scraper.scrapePage(createAbsoluteUrl(this.url, this.urlPlayersPage))
+      .then(response => {
+        const teamJson = this.handleScrapedResponse(response)
+        this.#saveTeamJsonToFile(teamJson)
+      })
+      .catch(console.error);
+  }
+
+  #saveTeamJsonToFile(teamJson) {
+    file.writeToFile(`output/teams/${this.teamName}.json`, teamJson)
+  }
+}
+
+var pathToTeams = require("path").join(__dirname, 'teams')
+require("fs").readdirSync(pathToTeams).forEach(teamFile => {
+  const teamConfig = require("./teams/" + teamFile)
+  new TeamScraper(teamConfig).scrapeTeamPage()
+})
