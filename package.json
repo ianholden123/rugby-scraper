@@ -26,6 +26,8 @@
     "puppeteer": "^5.0.0"
   },
   "devDependencies": {
+    "eslint": "^8.17.0",
+    "eslint-config-google": "^0.14.0",
     "jest": "^26.1.0"
   },
   "jest": {

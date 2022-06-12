@@ -1,13 +1,13 @@
 const puppeteer = require('puppeteer');
 const {
   isForward,
-  isBack
-} = require("./utils/playerPositions")
+  isBack,
+} = require('./utils/playerPositions');
 
-let scraper = (module.exports = {});
+const scraper = (module.exports = {});
 
-function wait (ms) {
-  return new Promise(resolve => setTimeout(() => resolve(), ms));
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(() => resolve(), ms));
 }
 
 /**
@@ -15,14 +15,14 @@ function wait (ms) {
  * @param {string} url The URL of the webpage to scrape
  */
 scraper.scrapePage = async (url) => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
-  page.setDefaultNavigationTimeout(50000)
-  await page.goto(url, { waitUntil: 'networkidle0' });
-  await wait(1000)
-  const content = await page.content()
+  page.setDefaultNavigationTimeout(50000);
+  await page.goto(url, {waitUntil: 'networkidle0'});
+  await wait(1000);
+  const content = await page.content();
   browser.close();
-  return content
+  return content;
 };
 
 /**
@@ -35,6 +35,7 @@ scraper.scrapePage = async (url) => {
  * @param {object} height The height of the player
  * @param {object} weight The weight of the player
  * @param {string} dob The date of birth of the player
+ * @return {object} A valid player object
  */
 scraper.formPlayerObject = ({
   team = null,
@@ -44,27 +45,31 @@ scraper.formPlayerObject = ({
   image = null,
   height = null,
   weight = null,
-  dob = null
+  dob = null,
 } = {}) => {
-  if (typeof team !== 'string') team = null
-  if (typeof name !== 'string') name = null
-  if (typeof position !== 'string') position = null
-  if (typeof playerLink !== 'string') playerLink = null
-  if (typeof image !== 'string') image = null
+  if (typeof team !== 'string') team = null;
+  if (typeof name !== 'string') name = null;
+  if (typeof position !== 'string') position = null;
+  if (typeof playerLink !== 'string') playerLink = null;
+  if (typeof image !== 'string') image = null;
   if (
     !Array.isArray(height) ||
     !height.length ||
-    !height.every(n => typeof n === 'object' && n.hasOwnProperty('value') && n.hasOwnProperty('unit'))
-  ) height = null
+    !height.every((n) => typeof n === 'object' && n.hasOwnProperty('value') && n.hasOwnProperty('unit'))
+  ) height = null;
   if (
     !Array.isArray(weight) ||
     !weight.length ||
-    !weight.every(n => typeof n === 'object' && n.hasOwnProperty('value') && n.hasOwnProperty('unit'))
-  ) weight = null
-  if (typeof dob !== 'string') dob = null
+    !weight.every((n) => typeof n === 'object' && n.hasOwnProperty('value') && n.hasOwnProperty('unit'))
+  ) weight = null;
+  if (typeof dob !== 'string') dob = null;
 
-  let isForwardOrBack = null
-  if (position) isForward(position) ? isForwardOrBack = 'Forward' : isBack(position) ? isForwardOrBack = 'Back' : null
+  let isForwardOrBack = null;
+  if (position) {
+    isForward(position) ? isForwardOrBack = 'Forward' : (
+      isBack(position) ? isForwardOrBack = 'Back' : null
+    );
+  }
 
   return {
     team,
