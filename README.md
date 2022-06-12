@@ -27,7 +27,11 @@ npm install
 
 ## Usage
 
-This is currently set up to crawl a variety of teams that are outlined in the `index.js` file. JSON files will be output to a `output/teams/` directory. To start crawling for teams, run the following command:
+This is currently set up to crawl a variety of teams that are defined in the `src/teams` directory. To add a new team, simply add a new file to that directory and export an object with the expected keys and values that our `TeamScraper` in the `src/index.js` file can handle.
+
+Team data will be scraped and published into JSON files which will be saved to a `output/teams` directory. 
+
+To start crawling for teams, run the following command:
 
 ```bash
 npm start
