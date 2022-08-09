@@ -16,8 +16,10 @@ class TeamScraper {
   }
 
   scrapeTeamPage() {
+    console.log('Starting to scrape', this.teamName, 'at', this.url);
     return scraper.scrapePage(createAbsoluteUrl(this.url, this.urlPlayersPage))
         .then((response) => {
+          console.log('Finished scraping', this.teamName);
           const teamJson = this.handleScrapedResponse(response);
           this.#saveTeamJsonToFile(teamJson);
         })
@@ -25,7 +27,11 @@ class TeamScraper {
   }
 
   #saveTeamJsonToFile(teamJson) {
-    file.writeToFile(`output/teams/${this.teamName}.json`, teamJson);
+    try {
+      file.writeToFile(`output/teams/${this.teamName}.json`, teamJson);
+    } catch (e) {
+      console.error(e);
+    };
   }
 }
 

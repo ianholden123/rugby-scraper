@@ -13,15 +13,21 @@ function wait(ms) {
 /**
  * Scrape a webpage and return the Axios response as a promise
  * @param {string} url The URL of the webpage to scrape
+ * @param {boolean} verbose Whether to enable verbose output from Puppeteer
  */
-scraper.scrapePage = async (url) => {
-  const browser = await puppeteer.launch({headless: true});
-  const page = await browser.newPage();
-  page.setDefaultNavigationTimeout(50000);
-  await page.goto(url, {waitUntil: 'networkidle0'});
-  await wait(1000);
-  const content = await page.content();
-  browser.close();
+scraper.scrapePage = async (url, verbose = false) => {
+  let content;
+  try {
+    const browser = await puppeteer.launch({headless: true, dumpio: verbose});
+    const page = await browser.newPage();
+    page.setDefaultNavigationTimeout(50000);
+    await page.goto(url, {waitUntil: 'networkidle0'});
+    await wait(1000);
+    content = await page.content();
+    browser.close();
+  } catch (e) {
+    console.error(e);
+  };
   return content;
 };
 
